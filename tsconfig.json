@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "module": "CommonJS",
+    "target": "ES5",
+    "lib": ["ES2015"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "files": ["src/index.ts"]
+}
