@@ -61,4 +61,4 @@ Now eslint will report all deprecated code that you use!
 
 ---
 
-_NOTE:_ This code was ported from https://github.com/SonarSource/SonarJS repository.
+_NOTE:_ This rule was ported from https://github.com/SonarSource/SonarJS repository.
