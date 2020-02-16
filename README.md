@@ -1,5 +1,13 @@
 # eslint-plugin-deprecation
 
+[![Build Status](https://travis-ci.org/gund/eslint-plugin-deprecation.svg?branch=master)](https://travis-ci.org/gund/eslint-plugin-deprecation)
+[![Maintainability](https://api.codeclimate.com/v1/badges/75faccce723e7021b790/maintainability)](https://codeclimate.com/github/gund/eslint-plugin-deprecation/maintainability)
+[![Npm](https://img.shields.io/npm/v/eslint-plugin-deprecation.svg)](https://www.npmjs.com/package/eslint-plugin-deprecation)
+[![Npm Downloads](https://img.shields.io/npm/dt/eslint-plugin-deprecation.svg)](https://www.npmjs.com/package/eslint-plugin-deprecation)
+![Size](https://badgen.net/bundlephobia/minzip/eslint-plugin-deprecation)
+[![Licence](https://img.shields.io/npm/l/eslint-plugin-deprecation.svg?maxAge=2592000)](https://github.com/gund/eslint-plugin-deprecation/blob/master/LICENSE)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 > ESLint rule that reports usage of deprecated code
 
 ## Prerequisites
