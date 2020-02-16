@@ -1,0 +1,24 @@
+dist: trusty
+language: node_js
+notifications:
+  email: false
+node_js: lts/*
+stages:
+  - test
+jobs:
+  include:
+    - stage: test
+      script:
+        - npm run format:check
+        # FIXME: Enable tests once implemented
+        # - npm run test
+        - npm run build
+      deploy:
+        provider: script
+        script: npm run semantic-release
+        skip_cleanup: true
+        keep_history: true
+        on:
+          tags: false
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^(master|next)$

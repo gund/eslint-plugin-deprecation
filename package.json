@@ -1,20 +1,26 @@
 {
   "name": "eslint-plugin-deprecation",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "ESLint rule that reports usage of deprecated code",
   "author": "Alex Malkevich <malkevich.alex@gmail.com>",
   "license": "LGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gund/eslint-plugin-deprecation.git"
+  },
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
+    "ct": "git-cz",
     "prebuild": "rimraf dist",
     "build": "tsc --build",
     "build:w": "npm run build -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write src/**/*",
-    "format:check": "prettier --check src/**/*"
+    "format:check": "prettier --check src/**/*",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^2.19.2",
@@ -28,13 +34,47 @@
     "typescript": "^3.7.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@semantic-release/changelog": "^5.0.0",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.3",
+    "@semantic-release/npm": "^7.0.3",
+    "@semantic-release/release-notes-generator": "^9.0.0",
     "@types/eslint": "^6.1.8",
     "@types/estree": "0.0.42",
     "@types/node": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "eslint": "^6.8.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
+    "husky": "^4.2.3",
     "prettier": "^1.19.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run format:check"
+    }
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "prettier --write"
+    ]
   }
 }
