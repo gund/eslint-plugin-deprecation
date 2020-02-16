@@ -1,6 +1,6 @@
 # eslint-plugin-deprecation
 
-> Rule that reports usage of deprecated code
+> ESLint rule that reports usage of deprecated code
 
 ## Prerequisites
 
