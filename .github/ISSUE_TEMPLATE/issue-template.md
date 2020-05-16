@@ -14,7 +14,7 @@ This plugin is a direct copy-past from the SonarJs repository
 to make it available for general public to use outside of the SonarJs.
 
 This means that I, even being the owner of this repository, am not the owner of the code
-and nor did I spend any significant amount of time to understand it.
+nor did I spend any significant amount of time to understand it.
 
 Which brings me to the same spot as you are - I am not capable to address your issue.
 
