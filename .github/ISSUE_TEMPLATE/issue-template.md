@@ -1,5 +1,5 @@
 ---
-name: Issue Template
+name: PLEASE READ THIS FIRST
 about: Please read this before opening an issue
 title: ''
 labels: ''
