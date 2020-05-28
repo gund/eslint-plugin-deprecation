@@ -15,17 +15,18 @@
   "scripts": {
     "ct": "git-cz",
     "prebuild": "rimraf dist",
-    "build": "tsc --build",
+    "build": "tsc --build tsconfig.build.json",
     "build:w": "npm run build -- --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:w": "npm run test -- --watch",
     "format": "prettier --write src/**/*",
     "format:check": "prettier --check src/**/*",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^2.19.2",
-    "eslint-plugin-sonarjs": "^0.5.0",
-    "tslib": "^1.10.0"
+    "@typescript-eslint/experimental-utils": "^2.34.0",
+    "tslib": "^1.10.0",
+    "tsutils": "^3.17.1"
   },
   "peerDependencies": {
     "@typescript-eslint/parser": "^2.19.2",
@@ -42,17 +43,19 @@
     "@semantic-release/npm": "^7.0.3",
     "@semantic-release/release-notes-generator": "^9.0.0",
     "@types/eslint": "^6.1.8",
-    "@types/estree": "0.0.42",
+    "@types/jest": "^25.0.0",
     "@types/node": "^13.7.1",
-    "@typescript-eslint/eslint-plugin": "^2.19.2",
-    "@typescript-eslint/parser": "^2.19.2",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
     "husky": "^4.2.3",
+    "jest": "^25.0.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
     "semantic-release": "^17.0.3",
+    "ts-jest": "^25.0.0",
     "typescript": "^3.7.5"
   },
   "config": {
@@ -75,6 +78,25 @@
   "lint-staged": {
     "src/**/*": [
       "prettier --write"
+    ]
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "isolatedModules": true
+      }
+    },
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "./tests/.+\\.test\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
     ]
   }
 }

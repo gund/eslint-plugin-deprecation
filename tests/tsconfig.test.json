@@ -1,0 +1,12 @@
+{
+  // Used when parsing scenarios for deprecation tests
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "lib": ["es5", "dom"],
+    // Reduce parse time by not auto-including all @types
+    "types": []
+  },
+  "include": ["fixtures"]
+}
