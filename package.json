@@ -24,13 +24,11 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^2.34.0",
+    "@typescript-eslint/experimental-utils": "^2.19.2 || ^3.0.0",
     "tslib": "^1.10.0",
-    "tsutils": "^3.17.1"
+    "tsutils": "^3.0.0"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": "^2.19.2",
-    "eslint": "^6.8.0",
     "typescript": "^3.7.5"
   },
   "devDependencies": {
@@ -42,11 +40,8 @@
     "@semantic-release/github": "^7.0.3",
     "@semantic-release/npm": "^7.0.3",
     "@semantic-release/release-notes-generator": "^9.0.0",
-    "@types/eslint": "^6.1.8",
     "@types/jest": "^25.0.0",
     "@types/node": "^13.7.1",
-    "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
@@ -78,25 +73,6 @@
   "lint-staged": {
     "src/**/*": [
       "prettier --write"
-    ]
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "isolatedModules": true
-      }
-    },
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "./tests/.+\\.test\\.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json"
     ]
   }
 }

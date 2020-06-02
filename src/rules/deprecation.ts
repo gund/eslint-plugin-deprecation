@@ -18,7 +18,6 @@ import {
   TSESLint,
   TSESTree,
 } from '@typescript-eslint/experimental-utils';
-import { ParserServices } from '@typescript-eslint/parser';
 import { isReassignmentTarget } from 'tsutils';
 import * as ts from 'typescript';
 
@@ -28,6 +27,8 @@ const createRule = ESLintUtils.RuleCreator(
 
 export type Options = unknown[];
 export type MessageIds = 'deprecated';
+
+type RequiredParserServices = ReturnType<typeof ESLintUtils.getParserServices>;
 
 export default createRule<Options, MessageIds>({
   name: 'deprecation',
@@ -46,13 +47,7 @@ export default createRule<Options, MessageIds>({
   },
   defaultOptions: [],
   create(context) {
-    const services = context.parserServices;
-    if (!isRequiredParserServices(services)) {
-      console.warn(
-        'TS not configured correctly for rule deprecation/deprecation',
-      );
-      return {};
-    }
+    const services = ESLintUtils.getParserServices(context);
 
     return {
       Identifier: (id: TSESTree.Identifier) => {
@@ -315,14 +310,4 @@ function isShorthandPropertyAssignment(
 
 function isShortHandProperty(parent: TSESTree.Node | undefined): boolean {
   return !!parent && parent.type === 'Property' && parent.shorthand;
-}
-
-type RequiredParserServices = {
-  [k in keyof ParserServices]: Exclude<ParserServices[k], undefined>;
-};
-
-function isRequiredParserServices(
-  services: ParserServices | undefined,
-): services is RequiredParserServices {
-  return !!services && !!services.program && !!services.esTreeNodeToTSNodeMap;
 }
