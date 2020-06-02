@@ -42,6 +42,8 @@
     "@semantic-release/release-notes-generator": "^9.0.0",
     "@types/jest": "^25.0.0",
     "@types/node": "^13.7.1",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
