@@ -10,8 +10,7 @@ jobs:
     - stage: test
       script:
         - npm run format:check
-        # FIXME: Enable tests once implemented
-        # - npm run test
+        - npm run test
         - npm run build
       deploy:
         provider: script

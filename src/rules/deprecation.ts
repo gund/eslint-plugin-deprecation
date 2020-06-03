@@ -13,84 +13,177 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import { TSESTree } from '@typescript-eslint/experimental-utils';
-import { ParserServices } from '@typescript-eslint/parser';
-import { Rule } from 'eslint';
-import { getParent } from 'eslint-plugin-sonarjs/lib/utils/nodes';
-import * as estree from 'estree';
+import {
+  ESLintUtils,
+  TSESLint,
+  TSESTree,
+} from '@typescript-eslint/experimental-utils';
+import { isReassignmentTarget } from 'tsutils';
 import * as ts from 'typescript';
 
-export default {
-  create(context: Rule.RuleContext) {
-    const services = context.parserServices;
-    if (!isRequiredParserServices(services)) {
-      return {};
-    }
-    return {
-      Identifier: (node: estree.Node) => {
-        const parent = getParent(context);
-        if (isShortHandProperty(parent) && parent.key === node) {
-          // to not report twice
-          return;
-        }
+const createRule = ESLintUtils.RuleCreator(
+  () => 'https://github.com/gund/eslint-plugin-deprecation',
+);
 
-        const id = node as estree.Identifier;
+export type Options = unknown[];
+export type MessageIds = 'deprecated';
+
+type RequiredParserServices = ReturnType<typeof ESLintUtils.getParserServices>;
+
+export default createRule<Options, MessageIds>({
+  name: 'deprecation',
+  meta: {
+    type: 'problem',
+    docs: {
+      description: 'Do not use deprecated APIs.',
+      category: 'Best Practices',
+      recommended: 'warn',
+      requiresTypeChecking: true,
+    },
+    messages: {
+      deprecated: `'{{name}}' is deprecated. {{reason}}`,
+    },
+    schema: [],
+  },
+  defaultOptions: [],
+  create(context) {
+    const services = ESLintUtils.getParserServices(context);
+
+    return {
+      Identifier: (id: TSESTree.Identifier) => {
         const insideImportExport = context
           .getAncestors()
           .some(anc => anc.type.includes('Import'));
-        if (insideImportExport || isDeclaration(id, context)) {
+        if (
+          insideImportExport ||
+          (id.type === 'Identifier' && isDeclaration(id, context))
+        ) {
+          // Don't consider deprecations if inside import/export.
+          // Also, the spot where something is declared is never deprecated.
           return;
         }
 
         const deprecation = getDeprecation(id, services, context);
         if (deprecation) {
           context.report({
-            node,
-            message: `'${id.name}' is deprecated. ${deprecation.reason}`,
+            node: id,
+            messageId: 'deprecated',
+            data: {
+              name: id.name,
+              reason: deprecation.reason,
+            },
           });
         }
       },
     };
   },
-} as Rule.RuleModule;
+});
 
-function isDeclaration(id: estree.Identifier, context: Rule.RuleContext) {
+function getParent(context: TSESLint.RuleContext<MessageIds, Options>) {
+  const ancestors = context.getAncestors();
+  return ancestors.length > 0 ? ancestors[ancestors.length - 1] : undefined;
+}
+
+// Unfortunately need to keep some state because identifiers like foo in
+// `const { foo } = bar` will be processed twice.
+let lastProcessedDuplicateName: string | undefined;
+
+function isDeclaration(
+  id: TSESTree.Identifier,
+  context: TSESLint.RuleContext<MessageIds, Options>,
+) {
   const parent = getParent(context);
-  if (isShortHandProperty(parent) && parent.value === id) {
-    return false;
-  }
 
-  const variable = context.getScope().variables.find(v => v.name === id.name);
-  if (variable) {
-    return variable.defs.some(def => def.name === id);
-  }
+  switch (parent?.type) {
+    case 'TSEnumDeclaration':
+    case 'TSInterfaceDeclaration':
+    case 'TSTypeAliasDeclaration':
+    case 'TSModuleDeclaration': // module or namespace
+    case 'TSPropertySignature': // property in an interface
+    case 'TSParameterProperty': // `constructor(public foo) {}`
+    // Type parameter: constraint and default are not identifiers
+    case 'TSTypeParameter': // T in `type Foo<T> = {}`
+    // Function/method: only the name and param names are identifiers
+    // (default values are assignment patterns or other types)
+    case 'FunctionDeclaration': // `function foo(param) {}`
+    case 'FunctionExpression': // `<something> = function foo(param) {}`
+    case 'TSDeclareFunction': // `function foo(param);`  (no body)
+    case 'MethodDefinition': // methods, getters, setters, constructor
+    case 'TSEmptyBodyFunctionExpression': // method without implementation
+    case 'TSMethodSignature': // method in an interface
+    case 'ArrowFunctionExpression':
+      return true;
 
-  const declarationTypes = [
-    'ClassProperty',
-    'TSPropertySignature',
-    'TSDeclareFunction',
-    'FunctionDeclaration',
-    'MethodDefinition',
-    'TSMethodSignature',
-  ];
-  return parent && declarationTypes.includes(parent.type);
+    case 'ClassExpression': // `<something> = class Foo {}`
+    case 'ClassDeclaration': // `class Foo {}`
+    case 'VariableDeclarator': // `const foo` or `const foo = bar`
+    case 'TSEnumMember': // enum member declaration
+      // Prevent considering initializer, extends, or implements to be declaration
+      return parent.id === id;
+
+    case 'ClassProperty':
+      // Prevent considering value to be a declaration
+      return parent.key === id;
+
+    case 'ArrayPattern': // `const [foo, bar] = baz`
+      // Array destructuring is truly a declaration on the left side
+      // (even if there's reassignment)
+      return parent.elements.includes(id);
+
+    case 'Property':
+      // no for ObjectExpression: `const foo = { bar: baz }`
+      if (parent.parent?.type === 'ObjectPattern') {
+        if (isShortHandProperty(parent)) {
+          // foo in `const { foo } = bar` will be processed twice, as key and
+          // value. Consider the second to be a declaration and the first not.
+          if (lastProcessedDuplicateName === id.name) {
+            lastProcessedDuplicateName = undefined;
+            return true;
+          } else {
+            lastProcessedDuplicateName = id.name;
+          }
+        } else {
+          // yes for bar, no for foo in `const { foo: bar } = baz`
+          return parent.value === id;
+        }
+      }
+      return false;
+
+    case 'AssignmentPattern':
+      if (
+        parent.parent?.type === 'Property' &&
+        isShortHandProperty(parent.parent)
+      ) {
+        // Variant of the Property/ObjectPattern case above: foo in
+        // `const { foo = 3 } = bar` will also show up twice, but the second
+        // time will be as an AssignmentPattern left.
+        if (lastProcessedDuplicateName === id.name) {
+          lastProcessedDuplicateName = undefined;
+          return true;
+        }
+      }
+      // Yes: bar in `function foo(bar = 3) {}` and `const [bar = 3] = []`
+      // No: bar in `const { bar = 3 }`
+      return parent.left === id && !isShortHandProperty(parent.parent);
+
+    default:
+      return false;
+  }
 }
 
 function getDeprecation(
-  id: estree.Identifier,
+  id: TSESTree.Identifier,
   services: RequiredParserServices,
-  context: Rule.RuleContext,
+  context: TSESLint.RuleContext<MessageIds, Options>,
 ) {
   const tc = services.program.getTypeChecker();
   const callExpression = getCallExpression(context, id);
 
   if (callExpression) {
     const tsCallExpression = services.esTreeNodeToTSNodeMap.get(
-      callExpression as TSESTree.Node,
-    );
-    const signature = tc.getResolvedSignature(
-      tsCallExpression as ts.CallLikeExpression,
-    );
+      callExpression,
+    ) as ts.CallLikeExpression;
+    const signature = tc.getResolvedSignature(tsCallExpression);
     if (signature) {
       const deprecation = getJsDocDeprecation(signature.getJsDocTags());
       if (deprecation) {
@@ -99,7 +192,7 @@ function getDeprecation(
     }
   }
 
-  const symbol = getSymbol(id, services, context, tc);
+  const symbol = getSymbol(id, services, tc);
 
   if (!symbol) {
     return undefined;
@@ -112,44 +205,45 @@ function getDeprecation(
 }
 
 function getSymbol(
-  id: estree.Identifier,
+  id: TSESTree.Identifier,
   services: RequiredParserServices,
-  context: Rule.RuleContext,
   tc: ts.TypeChecker,
 ) {
   let symbol: ts.Symbol | undefined;
   const tsId = services.esTreeNodeToTSNodeMap.get(
     id as TSESTree.Node,
   ) as ts.Identifier;
-  const parent = services.esTreeNodeToTSNodeMap.get(
-    getParent(context) as TSESTree.Node,
-  ) as ts.Node;
+  const parent = tsId.parent;
+
   if (parent.kind === ts.SyntaxKind.BindingElement) {
     symbol = tc.getTypeAtLocation(parent.parent).getProperty(tsId.text);
   } else if (
     (isPropertyAssignment(parent) && parent.name === tsId) ||
-    (isShorthandPropertyAssignment(parent) && parent.name === tsId)
+    (isShorthandPropertyAssignment(parent) &&
+      parent.name === tsId &&
+      isReassignmentTarget(tsId))
   ) {
     try {
       symbol = tc.getPropertySymbolOfDestructuringAssignment(tsId);
     } catch (e) {
-      // do nothing, we are in object literal, not destructuring
+      // we are in object literal, not destructuring
       // no obvious easy way to check that in advance
+      symbol = tc.getSymbolAtLocation(tsId);
     }
   } else {
     symbol = tc.getSymbolAtLocation(tsId);
   }
 
   if (symbol && (symbol.flags & ts.SymbolFlags.Alias) !== 0) {
-    return tc.getAliasedSymbol(symbol);
+    symbol = tc.getAliasedSymbol(symbol);
   }
   return symbol;
 }
 
 function getCallExpression(
-  context: Rule.RuleContext,
-  id: estree.Node,
-): estree.CallExpression | estree.TaggedTemplateExpression | undefined {
+  context: TSESLint.RuleContext<MessageIds, Options>,
+  id: TSESTree.Node,
+): TSESTree.CallExpression | TSESTree.TaggedTemplateExpression | undefined {
   const ancestors = context.getAncestors();
   let callee = id;
   let parent =
@@ -166,9 +260,9 @@ function getCallExpression(
 }
 
 function isCallExpression(
-  node: estree.Node | undefined,
-  callee: estree.Node,
-): node is estree.CallExpression | estree.TaggedTemplateExpression {
+  node: TSESTree.Node | undefined,
+  callee: TSESTree.Node,
+): node is TSESTree.CallExpression | TSESTree.TaggedTemplateExpression {
   if (node) {
     if (node.type === 'NewExpression' || node.type === 'CallExpression') {
       return node.callee === callee;
@@ -214,18 +308,6 @@ function isShorthandPropertyAssignment(
   return node.kind === ts.SyntaxKind.ShorthandPropertyAssignment;
 }
 
-function isShortHandProperty(
-  parent: estree.Node | undefined,
-): parent is estree.Property {
+function isShortHandProperty(parent: TSESTree.Node | undefined): boolean {
   return !!parent && parent.type === 'Property' && parent.shorthand;
-}
-
-type RequiredParserServices = {
-  [k in keyof ParserServices]: Exclude<ParserServices[k], undefined>;
-};
-
-function isRequiredParserServices(
-  services: ParserServices,
-): services is RequiredParserServices {
-  return !!services && !!services.program && !!services.esTreeNodeToTSNodeMap;
 }
