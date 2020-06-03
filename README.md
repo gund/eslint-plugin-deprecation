@@ -19,7 +19,7 @@ Which means that you should install dev deps:
 - `@typescript-eslint/parser`
 - `typescript`
 
-Then configure your `.eslintrc` like this:
+Then configure ESLint to parse TypeScript and include type information:
 
 ```jsonc
 {
@@ -28,17 +28,6 @@ Then configure your `.eslintrc` like this:
     "ecmaVersion": 2020,
     "sourceType": "module",
     "project": "./tsconfig.json" // <-- Point to your project's tsconfig.json or create new one
-  },
-  "settings": {
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
-    "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true,
-        "directory": "./tsconfig.json" // <-- Same tsconfig.json must be referenced
-      }
-    }
   }
 }
 ```
