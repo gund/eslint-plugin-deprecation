@@ -1,5 +1,19 @@
 # Changelog
 
+# [1.1.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.0.1...v1.1.0) (2020-06-03)
+
+
+### Bug Fixes
+
+* add back eslint peer dep ([88a3a42](https://github.com/gund/eslint-plugin-deprecation/commit/88a3a424dfbb1525dcf814502285930695f21eae))
+* add back some dependencies ([10994ed](https://github.com/gund/eslint-plugin-deprecation/commit/10994eddbc4df99f7eaee9028e52e45c39a59d2c))
+* address PR feedback ([2714330](https://github.com/gund/eslint-plugin-deprecation/commit/27143300b3232bfb9881d5c7caa3f4135f4f4255))
+
+
+### Features
+
+* catch more deprecation cases and add tests ([33eecd6](https://github.com/gund/eslint-plugin-deprecation/commit/33eecd68566e36546a9f2271b005292e99ffb5c1))
+
 ## [1.0.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.0.0...v1.0.1) (2020-05-04)
 
 
