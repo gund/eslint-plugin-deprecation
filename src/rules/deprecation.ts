@@ -30,6 +30,37 @@ export type MessageIds = 'deprecated';
 
 type RequiredParserServices = ReturnType<typeof ESLintUtils.getParserServices>;
 
+const ruleCreator = (
+  context: TSESLint.RuleContext<'deprecated', Options>,
+): TSESLint.RuleFunction<
+  TSESTree.JSXIdentifier | TSESTree.Identifier
+> => id => {
+  const services = ESLintUtils.getParserServices(context);
+  const insideImportExport = context
+    .getAncestors()
+    .some(anc => anc.type.includes('Import'));
+  if (
+    insideImportExport ||
+    ((id.type === 'Identifier' || id.type === 'JSXIdentifier') &&
+      isDeclaration(id, context))
+  ) {
+    // Don't consider deprecations if inside import/export.
+    // Also, the spot where something is declared is never deprecated.
+    return;
+  }
+
+  const deprecation = getDeprecation(id, services, context);
+  if (deprecation) {
+    context.report({
+      node: id,
+      messageId: 'deprecated',
+      data: {
+        name: id.name,
+        reason: deprecation.reason,
+      },
+    });
+  }
+};
 export default createRule<Options, MessageIds>({
   name: 'deprecation',
   meta: {
@@ -47,37 +78,9 @@ export default createRule<Options, MessageIds>({
   },
   defaultOptions: [],
   create(context) {
-    const services = ESLintUtils.getParserServices(context);
-
-    const rule = (id: TSESTree.Identifier | TSESTree.JSXIdentifier) => {
-      const insideImportExport = context
-        .getAncestors()
-        .some(anc => anc.type.includes('Import'));
-      if (
-        insideImportExport ||
-        ((id.type === 'Identifier' || id.type === 'JSXIdentifier') &&
-          isDeclaration(id, context))
-      ) {
-        // Don't consider deprecations if inside import/export.
-        // Also, the spot where something is declared is never deprecated.
-        return;
-      }
-
-      const deprecation = getDeprecation(id, services, context);
-      if (deprecation) {
-        context.report({
-          node: id,
-          messageId: 'deprecated',
-          data: {
-            name: id.name,
-            reason: deprecation.reason,
-          },
-        });
-      }
-    };
     return {
-      Identifier: rule,
-      JSXIdentifier: rule,
+      Identifier: ruleCreator(context),
+      JSXIdentifier: ruleCreator(context),
     };
   },
 });
