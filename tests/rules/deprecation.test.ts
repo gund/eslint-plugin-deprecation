@@ -6,6 +6,9 @@ const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
+    ecmaFeatures: {
+      jsx: true,
+    },
     sourceType: 'module',
     tsconfigRootDir: path.resolve(__dirname, '..'),
     project: './tsconfig.test.json', // relative to tsconfigRootDir
@@ -441,7 +444,7 @@ ruleTester.run('deprecation', rule, {
 function getValidTestCase(code: string): TSESLint.ValidTestCase<Options> {
   return {
     code,
-    filename: 'fixtures/file.ts',
+    filename: 'fixtures/file.tsx',
   };
 }
 
@@ -475,6 +478,6 @@ function getInvalidTestCase(
   return {
     code,
     errors,
-    filename: 'fixtures/file.ts',
+    filename: 'fixtures/file.tsx',
   };
 }

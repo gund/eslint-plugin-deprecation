@@ -6,7 +6,8 @@
     "strict": true,
     "lib": ["es5", "dom"],
     // Reduce parse time by not auto-including all @types
-    "types": []
+    "types": [],
+    "jsx": "preserve"
   },
   "include": ["fixtures"]
 }
