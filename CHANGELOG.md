@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.1.0...v1.1.1) (2020-12-06)
+
+
+### Bug Fixes
+
+* **package:** allow Typescript v4 as a peer dependency ([0e31d0c](https://github.com/gund/eslint-plugin-deprecation/commit/0e31d0c66bbf9e6b8dd5aafdae39f9df1923a640))
+
 # [1.1.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.0.1...v1.1.0) (2020-06-03)
 
 
