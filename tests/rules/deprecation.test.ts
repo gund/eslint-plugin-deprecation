@@ -163,9 +163,12 @@ ruleTester.run('deprecation', rule, {
       `),
     // Imports and exports (import path relative to ../fixtures)
     getValidTestCase(`
-      import { Interface1, def1 } from './deprecatedExports';
+      import { Interface1, def1, Component } from './deprecatedExports';
       import def3 from './deprecatedExports';
       `),
+    getValidTestCase(`
+      const component = <Component/>;
+    `),
   ],
   // Error cases. `// ERROR: x` marks the spot where the error occurs.
   invalid: [
@@ -428,15 +431,22 @@ ruleTester.run('deprecation', rule, {
       const c2 = new Class2(3);             // missed
       console.log(c2.prop2);                // ERROR: prop2
       `),
+    getInvalidTestCase(`
+      /** @deprecated */
+      const Component = () => <div/>;
+      
+      const component = <Component/>        // ERROR: Component
+    `),
     // Imports and exports (import path relative to ../fixtures)
     getInvalidTestCase(`
-      import { Interface1, def1 } from './deprecatedExports';
+      import { Interface1, def1, Component } from './deprecatedExports';
       import def3 from './deprecatedExports';
 
-      console.log(def1);            // ERROR: def1
-      console.log(def3);            // ERROR: def3
+      console.log(def1);              // ERROR: def1
+      console.log(def3);              // ERROR: def3
 
-      const def4: Interface1 = {};  // ERROR: Interface1
+      const def4: Interface1 = {};    // ERROR: Interface1
+      const component = <Component/>  // ERROR: Component
       `),
   ],
 });
