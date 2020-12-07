@@ -29,7 +29,6 @@ export type Options = unknown[];
 export type MessageIds = 'deprecated';
 
 type RequiredParserServices = ReturnType<typeof ESLintUtils.getParserServices>;
-
 export default createRule<Options, MessageIds>({
   name: 'deprecation',
   meta: {
@@ -47,37 +46,45 @@ export default createRule<Options, MessageIds>({
   },
   defaultOptions: [],
   create(context) {
-    const services = ESLintUtils.getParserServices(context);
-
+    const identifierRule = createRuleForIdentifier(context);
     return {
-      Identifier: (id: TSESTree.Identifier) => {
-        const insideImportExport = context
-          .getAncestors()
-          .some(anc => anc.type.includes('Import'));
-        if (
-          insideImportExport ||
-          (id.type === 'Identifier' && isDeclaration(id, context))
-        ) {
-          // Don't consider deprecations if inside import/export.
-          // Also, the spot where something is declared is never deprecated.
-          return;
-        }
-
-        const deprecation = getDeprecation(id, services, context);
-        if (deprecation) {
-          context.report({
-            node: id,
-            messageId: 'deprecated',
-            data: {
-              name: id.name,
-              reason: deprecation.reason,
-            },
-          });
-        }
-      },
+      Identifier: identifierRule,
+      JSXIdentifier: identifierRule,
     };
   },
 });
+
+function createRuleForIdentifier(
+  context: TSESLint.RuleContext<'deprecated', Options>,
+): TSESLint.RuleFunction<TSESTree.JSXIdentifier | TSESTree.Identifier> {
+  return function identifierRule(id) {
+    const services = ESLintUtils.getParserServices(context);
+    const insideImportExport = context
+      .getAncestors()
+      .some(anc => anc.type.includes('Import'));
+    if (
+      insideImportExport ||
+      ((id.type === 'Identifier' || id.type === 'JSXIdentifier') &&
+        isDeclaration(id, context))
+    ) {
+      // Don't consider deprecations if inside import/export.
+      // Also, the spot where something is declared is never deprecated.
+      return;
+    }
+
+    const deprecation = getDeprecation(id, services, context);
+    if (deprecation) {
+      context.report({
+        node: id,
+        messageId: 'deprecated',
+        data: {
+          name: id.name,
+          reason: deprecation.reason,
+        },
+      });
+    }
+  };
+}
 
 function getParent(context: TSESLint.RuleContext<MessageIds, Options>) {
   const ancestors = context.getAncestors();
@@ -89,7 +96,7 @@ function getParent(context: TSESLint.RuleContext<MessageIds, Options>) {
 let lastProcessedDuplicateName: string | undefined;
 
 function isDeclaration(
-  id: TSESTree.Identifier,
+  id: TSESTree.Identifier | TSESTree.JSXIdentifier,
   context: TSESLint.RuleContext<MessageIds, Options>,
 ) {
   const parent = getParent(context);
@@ -128,7 +135,7 @@ function isDeclaration(
     case 'ArrayPattern': // `const [foo, bar] = baz`
       // Array destructuring is truly a declaration on the left side
       // (even if there's reassignment)
-      return parent.elements.includes(id);
+      return id.type === 'Identifier' && parent.elements.includes(id);
 
     case 'Property':
       // no for ObjectExpression: `const foo = { bar: baz }`
@@ -172,7 +179,7 @@ function isDeclaration(
 }
 
 function getDeprecation(
-  id: TSESTree.Identifier,
+  id: TSESTree.Identifier | TSESTree.JSXIdentifier,
   services: RequiredParserServices,
   context: TSESLint.RuleContext<MessageIds, Options>,
 ) {
@@ -205,7 +212,7 @@ function getDeprecation(
 }
 
 function getSymbol(
-  id: TSESTree.Identifier,
+  id: TSESTree.Identifier | TSESTree.JSXIdentifier,
   services: RequiredParserServices,
   tc: ts.TypeChecker,
 ) {
@@ -268,6 +275,8 @@ function isCallExpression(
       return node.callee === callee;
     } else if (node.type === 'TaggedTemplateExpression') {
       return node.tag === callee;
+    } else if (node.type === 'JSXOpeningElement') {
+      return node.name === callee;
     }
   }
   return false;
