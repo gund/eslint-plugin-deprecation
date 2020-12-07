@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.2.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.1.1...v1.2.0) (2020-12-07)
+
+
+### Features
+
+* add ability to show rule for JSX usage ([f60558c](https://github.com/gund/eslint-plugin-deprecation/commit/f60558c40892363b2936ac4cb13448bba714920b)), closes [#8](https://github.com/gund/eslint-plugin-deprecation/issues/8)
+
 ## [1.1.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.1.0...v1.1.1) (2020-12-06)
 
 
