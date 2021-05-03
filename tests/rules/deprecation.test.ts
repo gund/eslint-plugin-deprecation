@@ -434,8 +434,19 @@ ruleTester.run('deprecation', rule, {
     getInvalidTestCase(`
       /** @deprecated */
       const Component = () => <div/>;
-      
+
       const component = <Component/>        // ERROR: Component
+    `),
+    // Mark deprecation on opening tag only
+    getInvalidTestCase(`
+      /** @deprecated */
+      const Component = () => <div/>;
+
+      const component = (
+        <Component>                    {/* ERROR: Component */}
+          hello
+        </Component>
+      );
     `),
     // Imports and exports (import path relative to ../fixtures)
     getInvalidTestCase(`
