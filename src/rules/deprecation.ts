@@ -59,16 +59,20 @@ function createRuleForIdentifier(
 ): TSESLint.RuleFunction<TSESTree.JSXIdentifier | TSESTree.Identifier> {
   return function identifierRule(id) {
     const services = ESLintUtils.getParserServices(context);
-    const insideImportExport = context
+
+    // Don't consider deprecations in certain cases:
+    // - Inside an import
+    const isInsideImport = context
       .getAncestors()
       .some(anc => anc.type.includes('Import'));
-    if (
-      insideImportExport ||
-      ((id.type === 'Identifier' || id.type === 'JSXIdentifier') &&
-        isDeclaration(id, context))
-    ) {
-      // Don't consider deprecations if inside import/export.
-      // Also, the spot where something is declared is never deprecated.
+    // - At the spot where something is declared
+    const isIdDeclaration =
+      (id.type === 'Identifier' || id.type === 'JSXIdentifier') &&
+      isDeclaration(id, context);
+    // - On JSX closing elements (only flag the opening element)
+    const isClosingElement =
+      id.type === 'JSXIdentifier' && id.parent?.type === 'JSXClosingElement';
+    if (isInsideImport || isIdDeclaration || isClosingElement) {
       return;
     }
 
