@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.2.0...v1.2.1) (2021-05-04)
+
+
+### Bug Fixes
+
+* don't flag JSX closing tags ([ea60c3d](https://github.com/gund/eslint-plugin-deprecation/commit/ea60c3dd3131946f792e895816447e3e317bc73b))
+
 # [1.2.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.1.1...v1.2.0) (2020-12-07)
 
 
