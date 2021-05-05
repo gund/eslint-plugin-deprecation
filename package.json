@@ -24,7 +24,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^2.19.2 || ^3.0.0",
+    "@typescript-eslint/experimental-utils": "^2.19.2 || ^3.0.0 || ^4.0.0",
     "tslib": "^1.10.0",
     "tsutils": "^3.0.0"
   },
