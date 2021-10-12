@@ -10,4 +10,7 @@ module.exports = {
   },
   testRegex: './tests/.+\\.test\\.ts$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  moduleNameMapper: {
+    '@eslint/eslintrc/universal': '@eslint/eslintrc/dist/eslintrc-universal.cjs',
+  },
 };
