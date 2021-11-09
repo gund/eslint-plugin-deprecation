@@ -7,7 +7,7 @@ import * as ts from 'typescript';
 export function stringifyJSDocTagInfoText(tag: ts.JSDocTagInfo): string {
   return isJSDocTagInfo4Point3Plus(tag)
     ? ts.displayPartsToString(tag.text)
-    : tag.text ?? '';
+    : (<any>tag).text ?? '';
 }
 
 /**
