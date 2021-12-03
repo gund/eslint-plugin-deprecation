@@ -15,9 +15,6 @@
     "url": "https://github.com/delagen/eslint-plugin-deprecation.git"
   },
   "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "ct": "git-cz",
     "prebuild": "rimraf dist",
