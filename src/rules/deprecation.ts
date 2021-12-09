@@ -20,7 +20,7 @@ import {
 } from '@typescript-eslint/experimental-utils';
 import { isReassignmentTarget } from 'tsutils';
 import * as ts from 'typescript';
-import { stringifyJSDocTagInfoText } from '../utils/stringifyJSDocTagInfoText';
+import { stringifyJsdocTagInfoText } from '../utils/stringify-jsdoc-tag-info-text';
 
 const createRule = ESLintUtils.RuleCreator(
   () => 'https://github.com/gund/eslint-plugin-deprecation',
@@ -289,7 +289,7 @@ function isCallExpression(
 function getJsDocDeprecation(tags: ts.JSDocTagInfo[]) {
   for (const tag of tags) {
     if (tag.name === 'deprecated') {
-      return { reason: stringifyJSDocTagInfoText(tag) };
+      return { reason: stringifyJsdocTagInfoText(tag) };
     }
   }
   return undefined;

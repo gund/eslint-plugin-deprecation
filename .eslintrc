@@ -5,7 +5,10 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  // "plugins": ["@typescript-eslint", "deprecation"],
+  "plugins": [
+    "@typescript-eslint"
+    //"deprecation"
+  ],
   "rules": {
     // "deprecation/deprecation": "warn"
   }

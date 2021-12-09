@@ -4,10 +4,15 @@
     "target": "es5",
     "module": "commonjs",
     "strict": true,
-    "lib": ["es5", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     // Reduce parse time by not auto-including all @types
     "types": [],
     "jsx": "preserve"
   },
-  "include": ["fixtures"]
+  "include": [
+    "fixtures"
+  ]
 }

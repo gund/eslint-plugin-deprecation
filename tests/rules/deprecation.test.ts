@@ -163,8 +163,8 @@ ruleTester.run('deprecation', rule, {
       `),
     // Imports and exports (import path relative to ../fixtures)
     getValidTestCase(`
-      import { Interface1, def1, Component } from './deprecatedExports';
-      import def3 from './deprecatedExports';
+      import { Interface1, def1, Component } from './deprecated-exports';
+      import def3 from './deprecated-exports';
       `),
     getValidTestCase(`
       const component = <Component/>;
@@ -450,8 +450,8 @@ ruleTester.run('deprecation', rule, {
     `),
     // Imports and exports (import path relative to ../fixtures)
     getInvalidTestCase(`
-      import { Interface1, def1, Component } from './deprecatedExports';
-      import def3 from './deprecatedExports';
+      import { Interface1, def1, Component } from './deprecated-exports';
+      import def3 from './deprecated-exports';
 
       console.log(def1);              // ERROR: def1
       console.log(def3);              // ERROR: def3

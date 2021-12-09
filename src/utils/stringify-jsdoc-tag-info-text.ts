@@ -4,7 +4,7 @@ import * as ts from 'typescript';
  * Stringifies the text within a JSDocTagInfo AST node with compatibility for
  * pre/post TypeScript 4.3 API changes.
  */
-export function stringifyJSDocTagInfoText(tag: ts.JSDocTagInfo): string {
+export function stringifyJsdocTagInfoText(tag: ts.JSDocTagInfo): string {
   return isJSDocTagInfo4Point3Plus(tag)
     ? ts.displayPartsToString(tag.text)
     : (<any>tag).text ?? '';
