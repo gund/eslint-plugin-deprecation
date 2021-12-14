@@ -35,7 +35,6 @@ export default createRule<Options, MessageIds>({
     type: 'problem',
     docs: {
       description: 'Do not use deprecated APIs.',
-      category: 'Best Practices',
       recommended: 'warn',
       requiresTypeChecking: true,
     },
@@ -64,7 +63,7 @@ function createRuleForIdentifier(
     // - Inside an import
     const isInsideImport = context
       .getAncestors()
-      .some(anc => anc.type.includes('Import'));
+      .some((anc) => anc.type.includes('Import'));
     // - At the spot where something is declared
     const isIdDeclaration =
       (id.type === 'Identifier' || id.type === 'JSXIdentifier') &&
@@ -132,7 +131,7 @@ function isDeclaration(
       // Prevent considering initializer, extends, or implements to be declaration
       return parent.id === id;
 
-    case 'ClassProperty':
+    case 'PropertyDefinition':
       // Prevent considering value to be a declaration
       return parent.key === id;
 
