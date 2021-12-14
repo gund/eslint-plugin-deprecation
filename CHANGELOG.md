@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.0...v1.3.1) (2021-12-14)
+
+
+### Bug Fixes
+
+* print deprecation reason correctly on ts 4.3+ ([e3c3c47](https://github.com/gund/eslint-plugin-deprecation/commit/e3c3c47885c44cd48dddf744868102fcf3dff6e7))
+
 # [1.3.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.2.1...v1.3.0) (2021-12-14)
 
 
