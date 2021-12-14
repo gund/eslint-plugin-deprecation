@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.3.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.2.1...v1.3.0) (2021-12-14)
+
+
+### Features
+
+* **deps:** update deps, support of eslint 8 ([6cb798c](https://github.com/gund/eslint-plugin-deprecation/commit/6cb798caf09c60f29dc07151878e6e90c426591a))
+
 ## [1.2.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.2.0...v1.2.1) (2021-05-04)
 
 
