@@ -33,6 +33,14 @@ jobs:
             -e "\"@typescript-eslint/parser\": {" \
             -e "\"@typescript-eslint/eslint-plugin\": {"
         - npm run test
+    - stage: test
+      name: 'Test Typescript v3.7.5'
+      script:
+        - npm i typescript@3.7.5
+        - |
+          cat package-lock.json | grep -A 1 \
+            -e "\"typescript\": {"
+        - npm run test
     - stage: build
       name: 'Build and Release'
       script:
