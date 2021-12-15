@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.1...v1.3.2) (2021-12-15)
+
+
+### Bug Fixes
+
+* **rule:** restore compatibility with ESLint <=v7 ([daace2a](https://github.com/gund/eslint-plugin-deprecation/commit/daace2acc0e53a77ea1ac06f375cc9cd15660357))
+
 ## [1.3.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.0...v1.3.1) (2021-12-14)
 
 
