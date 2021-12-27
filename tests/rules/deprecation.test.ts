@@ -169,7 +169,7 @@ ruleTester.run('deprecation', rule, {
     getValidTestCase(`
       const component = <Component/>;
     `),
-    // Class method with multiple signatures
+    // Method overloads in classes
     getValidTestCase(`
     class Class {
       method(param: string): void;
@@ -181,7 +181,7 @@ ruleTester.run('deprecation', rule, {
     const obj = new Class();
     obj.method('');
   `),
-  // Interface with multiple signatures, extending a class
+  // Method overloads in interfaces extending a class
   // This notation used to be mentioned in the TypeScript handbook
   // See https://www.typescriptlang.org/docs/handbook/classes.html#using-a-class-as-an-interface
   getValidTestCase(`
@@ -193,7 +193,7 @@ ruleTester.run('deprecation', rule, {
     const obj: Interface = { method(args: any) {} };
     obj.method('');
   `),
-  // Class with multiple method signatures, extending an interface
+  // Method overloads in classes which implement an interface
   getValidTestCase(`
     interface Interface {}
     class Class implements Interface {
@@ -496,6 +496,7 @@ ruleTester.run('deprecation', rule, {
       const def4: Interface1 = {};    // ERROR: Interface1
       const component = <Component/>  // ERROR: Component
       `),
+    // Method overloads in interfaces
     getInvalidTestCase(`
       interface Interface {
         method(param: string): void;
@@ -503,9 +504,11 @@ ruleTester.run('deprecation', rule, {
         /** @deprecated */ method(param: number): void;
       }
       const obj: Interface = { method(args: any) {} };
+      obj.method('valid');
       obj.method();  // ERROR: method
       obj.method(1); // ERROR: method
     `),
+    // Method overloads in classes
     getInvalidTestCase(`
       class Class {
         method(param: string): void;
@@ -513,6 +516,7 @@ ruleTester.run('deprecation', rule, {
         /** @deprecated */ method(param: number): void;
       }
       const obj = new Class();
+      obj.method('valid');
       obj.method();  // ERROR: method
       obj.method(1); // ERROR: method
     `),
