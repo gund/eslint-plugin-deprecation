@@ -193,19 +193,6 @@ ruleTester.run('deprecation', rule, {
     const obj: Interface = { method(args: any) {} };
     obj.method('');
   `),
-  // Method overloads in classes which implement an interface
-  getValidTestCase(`
-    interface Interface {}
-    class Class implements Interface {
-      method(param: string): void;
-      /** @deprecated */ method(param: number): void;
-
-      method(param: any): void {}
-    }
-    new Class().method('');
-    const obj = new Class();
-    obj.method('');
-  `),
   ],
   // Error cases. `// ERROR: x` marks the spot where the error occurs.
   invalid: [
