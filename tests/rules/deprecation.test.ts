@@ -169,6 +169,30 @@ ruleTester.run('deprecation', rule, {
     getValidTestCase(`
       const component = <Component/>;
     `),
+    // Method overloads in classes
+    getValidTestCase(`
+    class Class {
+      method(param: string): void;
+      /** @deprecated */ method(param: number): void;
+
+      method(param: any): void {}
+    }
+    new Class().method('');
+    const obj = new Class();
+    obj.method('');
+  `),
+  // Method overloads in interfaces extending a class
+  // This notation used to be mentioned in the TypeScript handbook
+  // See https://www.typescriptlang.org/docs/handbook/classes.html#using-a-class-as-an-interface
+  getValidTestCase(`
+    class Class {}
+    interface Interface extends Class {
+      method(param: string): void;
+      /** @deprecated */ method(param: number): void;
+    }
+    const obj: Interface = { method(args: any) {} };
+    obj.method('');
+  `),
   ],
   // Error cases. `// ERROR: x` marks the spot where the error occurs.
   invalid: [
@@ -459,6 +483,30 @@ ruleTester.run('deprecation', rule, {
       const def4: Interface1 = {};    // ERROR: Interface1
       const component = <Component/>  // ERROR: Component
       `),
+    // Method overloads in interfaces
+    getInvalidTestCase(`
+      interface Interface {
+        method(param: string): void;
+        /** @deprecated */ method(): void;
+        /** @deprecated */ method(param: number): void;
+      }
+      const obj: Interface = { method(args: any) {} };
+      obj.method('valid');
+      obj.method();  // ERROR: method
+      obj.method(1); // ERROR: method
+    `),
+    // Method overloads in classes
+    getInvalidTestCase(`
+      class Class {
+        method(param: string): void;
+        /** @deprecated */ method(): void;
+        /** @deprecated */ method(param: number): void;
+      }
+      const obj = new Class();
+      obj.method('valid');
+      obj.method();  // ERROR: method
+      obj.method(1); // ERROR: method
+    `),
   ],
 });
 
