@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.2...v1.3.3) (2022-11-14)
+
+
+### Bug Fixes
+
+* **rule:** optimize rule checks ([bcffb64](https://github.com/gund/eslint-plugin-deprecation/commit/bcffb64a3521354c5c5a20d7555ca41eaba97e2d))
+
 ## [1.3.2](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.1...v1.3.2) (2021-12-15)
 
 
