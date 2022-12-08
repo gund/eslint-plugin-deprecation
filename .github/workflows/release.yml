@@ -15,6 +15,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: release
     steps:
       - uses: actions/setup-node@v3
       - uses: actions/checkout@v3
