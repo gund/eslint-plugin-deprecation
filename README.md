@@ -1,6 +1,7 @@
 # eslint-plugin-deprecation
 
-[![Build Status](https://travis-ci.org/gund/eslint-plugin-deprecation.svg?branch=master)](https://travis-ci.org/gund/eslint-plugin-deprecation)
+[![Test Workflow](https://github.com/gund/eslint-plugin-deprecation/actions/workflows/test.yml/badge.svg)](https://github.com/gund/eslint-plugin-deprecation/actions/workflows/test.yml)
+[![Release Workflow](https://github.com/gund/eslint-plugin-deprecation/actions/workflows/release.yml/badge.svg)](https://github.com/gund/eslint-plugin-deprecation/actions/workflows/release.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/bfd9c6e327a267130e50/maintainability)](https://codeclimate.com/github/gund/eslint-plugin-deprecation/maintainability)
 [![Npm](https://img.shields.io/npm/v/eslint-plugin-deprecation.svg)](https://www.npmjs.com/package/eslint-plugin-deprecation)
 [![Npm Downloads](https://img.shields.io/npm/dt/eslint-plugin-deprecation.svg)](https://www.npmjs.com/package/eslint-plugin-deprecation)
