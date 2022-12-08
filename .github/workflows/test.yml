@@ -83,5 +83,5 @@ jobs:
       - name: Unit tests
         run: npm run test
       - name: Build
-        if: ${{ matrix.build }} == true
+        if: matrix.build
         run: npm run build
