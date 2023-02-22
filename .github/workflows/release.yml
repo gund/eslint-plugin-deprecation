@@ -32,6 +32,7 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Build
         run: npm run build
+      - run: git fetch origin master
       - name: Release to NPM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
