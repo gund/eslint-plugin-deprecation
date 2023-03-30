@@ -4,7 +4,9 @@ import * as ts from 'typescript';
  * Stringifies the text within a JSDocTagInfo AST node with compatibility for
  * pre/post TypeScript 4.3 API changes.
  */
-export function stringifyJSDocTagInfoText(tag: ts.JSDocTagInfo): string {
+export function stringifyJSDocTagInfoText(
+  tag: ts.JSDocTagInfo | { text: ts.SymbolDisplayPart[] },
+): string {
   return isJSDocTagInfo4Point2AndBefore(tag)
     ? tag.text ?? ''
     : ts.displayPartsToString(tag.text);
@@ -22,7 +24,10 @@ interface JSDocTagInfo4Point2AndBefore {
 }
 
 function isJSDocTagInfo4Point2AndBefore(
-  tag: ts.JSDocTagInfo | JSDocTagInfo4Point2AndBefore,
+  tag:
+    | ts.JSDocTagInfo
+    | JSDocTagInfo4Point2AndBefore
+    | { text: ts.SymbolDisplayPart[] },
 ): tag is JSDocTagInfo4Point2AndBefore {
   return typeof tag.text === 'string';
 }
