@@ -68,7 +68,7 @@ jobs:
             build: true
           - name: "Test with Typescript v3.7.5"
             cmd: |
-              npm i -D jest@^27 ts-jest@^27 @types/jest@^27 --force && \
+              npm i -D jest@^27 ts-jest@^27 @types/jest@^27 @commitlint/cli@13 @commitlint/config-conventional@13 --force && \
               npm i typescript@3.7.5 --force && \
               cat package-lock.json | grep -A 1 \
                 -e "\"node_modules/typescript\": {" \
