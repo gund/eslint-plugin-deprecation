@@ -48,23 +48,23 @@ jobs:
             cmd: |
               npm i eslint@^7 @typescript-eslint/parser@^4 @typescript-eslint/eslint-plugin@^4 && \
               cat package-lock.json | grep -A 1 \
-                -e "\"eslint\": {" \
-                -e "\"@typescript-eslint/parser\": {" \
-                -e "\"@typescript-eslint/eslint-plugin\": {"
+                -e "\"node_modules/eslint\": {" \
+                -e "\"node_modules/@typescript-eslint/parser\": {" \
+                -e "\"node_modules/@typescript-eslint/eslint-plugin\": {"
             build: true
           - name: "Test with Eslint v6"
             cmd: |
               npm i eslint@^6 @typescript-eslint/parser@^3 @typescript-eslint/eslint-plugin@^3 && \
               cat package-lock.json | grep -A 1 \
-                -e "\"eslint\": {" \
-                -e "\"@typescript-eslint/parser\": {" \
-                -e "\"@typescript-eslint/eslint-plugin\": {"
+                -e "\"node_modules/eslint\": {" \
+                -e "\"node_modules/@typescript-eslint/parser\": {" \
+                -e "\"node_modules/@typescript-eslint/eslint-plugin\": {"
             build: true
           - name: "Test with Typescript v3.7.5"
             cmd: |
               npm i typescript@3.7.5 && \
               cat package-lock.json | grep -A 1 \
-                -e "\"typescript\": {"
+                -e "\"node_modules/typescript\": {"
             build: false
     name: '[BC] ${{ matrix.name }}'
     steps:
