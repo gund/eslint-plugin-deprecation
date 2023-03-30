@@ -24,7 +24,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^5.0.0",
+    "@typescript-eslint/experimental-utils": "^5.57.0",
     "tslib": "^2.3.1",
     "tsutils": "^3.21.0"
   },
@@ -43,8 +43,8 @@
     "@semantic-release/release-notes-generator": "^10.0.2",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.0.0",
