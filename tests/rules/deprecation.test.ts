@@ -513,7 +513,7 @@ ruleTester.run('deprecation', rule, {
 function getValidTestCase(code: string): TSESLint.ValidTestCase<Options> {
   return {
     code,
-    filename: 'fixtures/file.tsx',
+    filename: 'fixtures/file.react.tsx',
   };
 }
 
@@ -547,6 +547,6 @@ function getInvalidTestCase(
   return {
     code,
     errors,
-    filename: 'fixtures/file.tsx',
+    filename: 'fixtures/file.react.tsx',
   };
 }
