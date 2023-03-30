@@ -60,6 +60,12 @@ jobs:
                 -e "\"node_modules/@typescript-eslint/parser\": {" \
                 -e "\"node_modules/@typescript-eslint/eslint-plugin\": {"
             build: true
+          - name: "Test with Typescript v4"
+            cmd: |
+              npm i typescript@^4 && \
+              cat package-lock.json | grep -A 1 \
+                -e "\"node_modules/typescript\": {"
+            build: true
           - name: "Test with Typescript v3.7.5"
             cmd: |
               npm i -D jest@^27 ts-jest@^27 @types/jest@^27 --force && \
