@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.4.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.3...v1.4.0) (2023-04-01)
+
+
+### Features
+
+* add support for Typescript v5 ([a9683d9](https://github.com/gund/eslint-plugin-deprecation/commit/a9683d9261b8466667653e94b042e0ec02a51ebf))
+
 # [1.4.0-next.2](https://github.com/gund/eslint-plugin-deprecation/compare/v1.4.0-next.1...v1.4.0-next.2) (2023-03-31)
 
 
