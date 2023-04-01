@@ -1,5 +1,19 @@
 # Changelog
 
+# [1.4.0-next.2](https://github.com/gund/eslint-plugin-deprecation/compare/v1.4.0-next.1...v1.4.0-next.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* update to typescript v5 ([9416799](https://github.com/gund/eslint-plugin-deprecation/commit/94167994d47ce8ba49bc6cece6d8da0549ecb520)), closes [/github.com/typescript-eslint/typescript-eslint/issues/5457#issuecomment-1210617414](https://github.com//github.com/typescript-eslint/typescript-eslint/issues/5457/issues/issuecomment-1210617414)
+
+# [1.4.0-next.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.3...v1.4.0-next.1) (2023-02-22)
+
+
+### Features
+
+* **deps:** add Typescript v5 beta support ([0d7e2a4](https://github.com/gund/eslint-plugin-deprecation/commit/0d7e2a4805075f36f05e18b6efeb663b00e6bdfb))
+
 ## [1.3.3](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.2...v1.3.3) (2022-11-14)
 
 
