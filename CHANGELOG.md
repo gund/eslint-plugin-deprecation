@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.4.0...v1.4.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **deps:** use `@typescript-eslint/utils` instead of experimental ([448004c](https://github.com/gund/eslint-plugin-deprecation/commit/448004cc0f5a330369db93b6a81a60714b9a04e7))
+
 # [1.4.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.3.3...v1.4.0) (2023-04-01)
 
 
