@@ -13,11 +13,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import {
-  ESLintUtils,
-  TSESLint,
-  TSESTree,
-} from '@typescript-eslint/experimental-utils';
+import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { isReassignmentTarget } from 'tsutils';
 import * as ts from 'typescript';
 import { stringifyJSDocTagInfoText } from '../utils/stringifyJSDocTagInfoText';

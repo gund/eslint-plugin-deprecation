@@ -1,4 +1,4 @@
-import { TSESLint, ESLintUtils } from '@typescript-eslint/experimental-utils';
+import { TSESLint, ESLintUtils } from '@typescript-eslint/utils';
 import rule, { MessageIds, Options } from '../../src/rules/deprecation';
 import * as path from 'path';
 
@@ -181,10 +181,10 @@ ruleTester.run('deprecation', rule, {
     const obj = new Class();
     obj.method('');
   `),
-  // Method overloads in interfaces extending a class
-  // This notation used to be mentioned in the TypeScript handbook
-  // See https://www.typescriptlang.org/docs/handbook/classes.html#using-a-class-as-an-interface
-  getValidTestCase(`
+    // Method overloads in interfaces extending a class
+    // This notation used to be mentioned in the TypeScript handbook
+    // See https://www.typescriptlang.org/docs/handbook/classes.html#using-a-class-as-an-interface
+    getValidTestCase(`
     class Class {}
     interface Interface extends Class {
       method(param: string): void;
