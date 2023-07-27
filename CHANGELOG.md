@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.5.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.4.1...v1.5.0) (2023-07-27)
+
+
+### Features
+
+* add `deprecation/recommended` configuration ([#69](https://github.com/gund/eslint-plugin-deprecation/issues/69)) ([4b482c0](https://github.com/gund/eslint-plugin-deprecation/commit/4b482c09a5af43fb80531980ffc95a592e8421d5)), closes [#68](https://github.com/gund/eslint-plugin-deprecation/issues/68)
+* recommended config ([33a1888](https://github.com/gund/eslint-plugin-deprecation/commit/33a18886f48e395c4afa86ed10448c207c79d5dd))
+
 ## [1.4.1](https://github.com/gund/eslint-plugin-deprecation/compare/v1.4.0...v1.4.1) (2023-04-05)
 
 
