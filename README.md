@@ -13,7 +13,7 @@
 
 ## Prerequisites
 
-If you already use [TypeScript](https://www.typescriptlang.org/) and one or more rules from the [`typescript-eslint`](https://typescript-eslint.io/) plugin, then `eslint-plugin-deprecation` will work out of the box without any additional dependencies or special configuration specified in this section. (This is because `@typescript-eslint/plugin` automatically contains `@typescript-eslint/parser` and ESLint should already be configured with the `parserOptions` to work properly with TypeScript.)
+If you already use [TypeScript](https://www.typescriptlang.org/) and one or more rules from the [`typescript-eslint`](https://typescript-eslint.io/) plugin, then `eslint-plugin-deprecation` will work out of the box without any additional dependencies or special configuration specified in this section. (This is because `@typescript-eslint/plugin` automatically contains `@typescript-eslint/parser` and your ESLint should already be configured with the `parserOptions` to work properly with TypeScript.)
 
 Otherwise, in order for you to use this plugin, you must also install the following dependencies:
 
