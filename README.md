@@ -61,7 +61,7 @@ The easiest way to use this plugin is to extend from the `recommended` config, l
 }
 ```
 
-The `recommended` config will enable the plugin and enable the rule with a value of `error`.
+The `recommended` config will enable the plugin and enable the `deprecation/deprecation` rule with a value of `error`.
 
 ### Manually Enable the Plugin and Rule
 
@@ -81,4 +81,4 @@ If you don't want to use the `recommended` config for some reason, you can accom
 
 ## Credits
 
-This rule was originally ported from [SonarJS repository](https://github.com/SonarSource/SonarJS).
+This rule was originally ported from the [SonarJS repository](https://github.com/SonarSource/SonarJS).
