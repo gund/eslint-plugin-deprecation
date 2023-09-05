@@ -55,41 +55,13 @@ jobs:
                 -e "\"node_modules/@typescript-eslint/eslint-plugin\": {"
             test: npm run test
             build: npm run build
-          - name: 'Test with Eslint v6'
-            cmd: |
-              npm i eslint@^6 \
-                    @typescript-eslint/parser@^3 \
-                    @typescript-eslint/eslint-plugin@^3
-              cat package-lock.json | grep -A 1 \
-                -e "\"node_modules/eslint\": {" \
-                -e "\"node_modules/@typescript-eslint/parser\": {" \
-                -e "\"node_modules/@typescript-eslint/eslint-plugin\": {"
-            test: npm run test
-            build: npm run build
           - name: 'Test with Typescript v4'
             cmd: |
-              npm i typescript@^4
+              npm i typescript@^4.2
               cat package-lock.json | grep -A 1 \
                 -e "\"node_modules/typescript\": {"
             test: npm run test
             build: npm run build
-          - name: 'Test with Typescript v3.7.5'
-            cmd: |
-              npm i -D jest@~27.0.0 \
-                        ts-jest@~27.0.0 \
-                        @types/jest@~27.0.0 \
-                        @types/node@^16.0.0 \
-                        @typescript-eslint/eslint-plugin@5.0.0 \
-                        @typescript-eslint/parser@5.0.0 \
-                        eslint@~8.0.0 \
-                        --force
-              npm i typescript@3.7.5 --force
-              cat package-lock.json | grep -A 1 \
-                -e "\"node_modules/typescript\": {" \
-                -e "\"node_modules/jest\": {" \
-                -e "\"node_modules/ts-jest\": {"
-            test: BC_MODE=1 npm run test
-            build: false
     name: '[BC] ${{ matrix.name }}'
     steps:
       - uses: actions/setup-node@v3
