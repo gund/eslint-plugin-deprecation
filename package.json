@@ -44,6 +44,7 @@
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/rule-tester": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",

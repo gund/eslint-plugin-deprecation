@@ -1,8 +1,9 @@
 import { TSESLint, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 import rule, { MessageIds, Options } from '../../src/rules/deprecation';
 import * as path from 'path';
 
-const ruleTester = new ESLintUtils.RuleTester({
+const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
