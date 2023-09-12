@@ -13,7 +13,12 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
+import {
+  ESLintUtils,
+  ParserServicesWithTypeInformation,
+  TSESLint,
+  TSESTree,
+} from '@typescript-eslint/utils';
 import { isReassignmentTarget } from 'tsutils';
 import * as ts from 'typescript';
 import { stringifyJSDocTagInfoText } from '../utils/stringifyJSDocTagInfoText';
@@ -32,7 +37,6 @@ export default createRule<Options, MessageIds>({
     type: 'problem',
     docs: {
       description: 'Do not use deprecated APIs.',
-      recommended: 'warn',
       requiresTypeChecking: true,
     },
     messages: {
@@ -42,6 +46,13 @@ export default createRule<Options, MessageIds>({
   },
   defaultOptions: [],
   create(context) {
+    const services = ESLintUtils.getParserServices(context);
+    if (!services.program) {
+      throw new Error(
+        'TypeScript is required for this rule: https://github.com/gund/eslint-plugin-deprecation#prerequisites',
+      );
+    }
+
     const identifierRule = createRuleForIdentifier(context);
     return {
       Identifier: identifierRule,
@@ -195,7 +206,7 @@ function isDeclaration(
 
 function getDeprecation(
   id: TSESTree.Identifier | TSESTree.JSXIdentifier,
-  services: RequiredParserServices,
+  services: ParserServicesWithTypeInformation,
   context: TSESLint.RuleContext<MessageIds, Options>,
 ) {
   const tc = services.program.getTypeChecker();
