@@ -1,4 +1,4 @@
-import { TSESLint, ESLintUtils } from '@typescript-eslint/utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import { RuleTester } from '@typescript-eslint/rule-tester';
 import rule, { MessageIds, Options } from '../../src/rules/deprecation';
 import * as path from 'path';

@@ -46,13 +46,9 @@ jobs:
         include:
           - name: 'Test with Eslint v7'
             cmd: |
-              npm i eslint@^7 \
-                    @typescript-eslint/parser@^4 \
-                    @typescript-eslint/eslint-plugin@^4
+              npm i eslint@^7
               cat package-lock.json | grep -A 1 \
                 -e "\"node_modules/eslint\": {" \
-                -e "\"node_modules/@typescript-eslint/parser\": {" \
-                -e "\"node_modules/@typescript-eslint/eslint-plugin\": {"
             test: npm run test
             build: npm run build
           - name: 'Test with Typescript v4'
