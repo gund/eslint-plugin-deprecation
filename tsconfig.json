@@ -9,6 +9,7 @@
     "importHelpers": true,
     "sourceMap": true,
     "module": "CommonJS",
+    "moduleResolution": "nodenext",
     "target": "ES2015",
     "lib": ["ESNext"],
     "types": ["node", "jest"],
