@@ -1,5 +1,17 @@
 # Changelog
 
+# [2.0.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.5.0...v2.0.0) (2023-09-13)
+
+
+### Features
+
+* migrate to typescript-eslint/utils 6.x ([#71](https://github.com/gund/eslint-plugin-deprecation/issues/71)) ([5a32ce0](https://github.com/gund/eslint-plugin-deprecation/commit/5a32ce0c761782902c07ec9df4dee5150f7b5c4c))
+
+
+### BREAKING CHANGES
+
+* Dropped support for ESLint v6 and Typescript v3.7.5, please make sure to use at least ESLint v7 with Typescript v4.2 or downgrade to a previous major version.
+
 # [1.5.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.4.1...v1.5.0) (2023-07-27)
 
 
