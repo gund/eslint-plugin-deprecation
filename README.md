@@ -11,7 +11,7 @@
 
 > An [ESLint](https://eslint.org/) rule that reports usage of deprecated code.
 
-Shows usage of anything marked with the `@deprecated` JSDoc tag (browser APIs, Node.js APIs, library APIs, etc)
+Reports usage of anything marked with a `@deprecated` JSDoc tag (browser APIs, Node.js APIs, library APIs, etc)
 
 **Deprecated browser APIs**
 
