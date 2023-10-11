@@ -15,11 +15,11 @@ Reports usage of anything marked with a `@deprecated` JSDoc tag (browser APIs, N
 
 **Deprecated browser APIs**
 
-<img width="620" src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/361d6546-aa74-4b32-b977-36b6e3f183fa" alt="Screenshot of warning `'event' is deprecated` raised by eslint-plugin-deprecation" />
+<img width="620" src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/361d6546-aa74-4b32-b977-36b6e3f183fa" alt="Screenshot of warning `'event' is deprecated` raised by eslint-plugin-deprecation" /><br />
 
 **Deprecated Node.js APIs**
 
-<img width="620" src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/ad0fa944-5c0a-4cc0-84a4-f1a94ba6c631" alt="Screenshot of warning `'parse' is deprecated. Use the WHATWG URL API instead.` raised by eslint-plugin-deprecation" />
+<img width="620" src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/ad0fa944-5c0a-4cc0-84a4-f1a94ba6c631" alt="Screenshot of warning `'parse' is deprecated. Use the WHATWG URL API instead.` raised by eslint-plugin-deprecation" /><br />
 
 **Deprecated library APIs**
 
