@@ -11,6 +11,20 @@
 
 > An [ESLint](https://eslint.org/) rule that reports usage of deprecated code.
 
+Shows usage of anything marked with the `@deprecated` JSDoc tag (browser APIs, Node.js APIs, library APIs, etc)
+
+**Deprecated browser APIs**
+
+<img src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/361d6546-aa74-4b32-b977-36b6e3f183fa" alt="Screenshot of warning `'event' is deprecated` raised by eslint-plugin-deprecation" />
+
+**Deprecated Node.js APIs**
+
+<img src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/ad0fa944-5c0a-4cc0-84a4-f1a94ba6c631" alt="Screenshot of warning `'parse' is deprecated. Use the WHATWG URL API instead.` raised by eslint-plugin-deprecation" />
+
+**Deprecated library APIs**
+
+<img src="https://github.com/gund/eslint-plugin-deprecation/assets/1935696/a26d41be-0069-476f-9c6a-9f930edafeb1" alt="Screenshot of warning `'cheerio' is deprecated. Use the function returned by `load` instead` raised by eslint-plugin-deprecation" />
+
 ## Prerequisites
 
 If you already use [TypeScript](https://www.typescriptlang.org/) and one or more rules from the [`typescript-eslint`](https://typescript-eslint.io/) plugin, then `eslint-plugin-deprecation` will work out of the box without any additional dependencies or special configuration specified in this section. (This is because `@typescript-eslint/plugin` automatically contains `@typescript-eslint/parser` and your ESLint should already be configured with the `parserOptions` to work properly with TypeScript.)
