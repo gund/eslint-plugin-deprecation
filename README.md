@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/npm/l/eslint-plugin-deprecation.svg?maxAge=2592000)](https://github.com/gund/eslint-plugin-deprecation/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-> An [ESLint](https://eslint.org/) rule that reports usage of deprecated code.
+> An [ESLint](https://eslint.org/) plugin with rules reporting usage of deprecated code
 
 ## Prerequisites
 
@@ -77,6 +77,50 @@ If you don't want to use the `recommended` config for some reason, you can accom
     "deprecation/deprecation": "error",
   },
 }
+```
+
+## Rules
+
+### Disallow usage of deprecated APIs (`deprecation/deprecation`)
+
+Reports usage of any code marked with a [`@deprecated` JSDoc tag](https://jsdoc.app/tags-deprecated.html).
+
+For example, this includes browser APIs, Node.js APIs, library APIs and any other code that is marked with this tag.
+
+#### Rule Details
+
+Examples of **incorrect** code for this rule:
+
+```ts
+import { parse } from 'node:url';
+import cheerio from 'cheerio';
+
+// Node.js API
+const url = parse('/foo'); // ❌ 'parse' is deprecated. Use the WHATWG URL API instead. eslint(deprecation/deprecation)
+
+// Browser API
+console.log(event?.bubbles); // ❌ 'event' is deprecated. [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/event) eslint(deprecation/deprecation)
+
+// Deprecated library API
+cheerio('<h2 class="title">Hello world</h2>'); // ❌ 'cheerio' is deprecated. Use the function returned by `load` instead. eslint(deprecation/deprecation)
+```
+
+Examples of **correct** code for this rule:
+
+```ts
+import { load } from 'cheerio';
+import { ChangeEvent } from 'react';
+
+// Node.js API
+const url2 = new URL('/foo', 'http://www.example.com'); // ✅ Modern Node.js API, uses `new URL()`
+
+// Browser API
+function onClick(event: ChangeEvent<HTMLInputElement>) {
+  console.log(event.bubbles); // ✅ Modern browser API, does not use global
+}
+
+// Library API
+load('<h2 class="title">Hello world</h2>'); // ✅ Allowed library API, uses named `load` import
 ```
 
 ## Credits
