@@ -83,7 +83,7 @@ If you don't want to use the `recommended` config for some reason, you can accom
 
 ### Disallow usage of deprecated APIs (`deprecation`)
 
-Reports usage of any code marked with a [`@deprecated` JSDoc tag](https://jsdoc.app/tags-deprecated.html), including browser APIs, Node.js APIs, library APIs, etc.
+Reports usage of any code marked with a [`@deprecated` JSDoc tag](https://jsdoc.app/tags-deprecated.html). For example, this includes browser APIs, Node.js APIs, library APIs and any other code that is marked with this tag.
 
 #### Rule Details
 
