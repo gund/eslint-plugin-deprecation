@@ -3,8 +3,10 @@ import * as ts from 'typescript';
 /**
  * Stringifies the text within a JSDocTagInfo AST node with compatibility for
  * pre/post TypeScript 4.3 API changes.
+ *
+ * @internal
  */
-export function stringifyJSDocTagInfoText(
+export function stringifyJSDocTag(
   tag: ts.JSDocTagInfo | { text: ts.SymbolDisplayPart[] },
 ): string {
   return isJSDocTagInfo4Point2AndBefore(tag)
