@@ -1,5 +1,29 @@
 # Changelog
 
+# [3.0.0](https://github.com/gund/eslint-plugin-deprecation/compare/v2.0.0...v3.0.0) (2024-05-31)
+
+
+### Features
+
+* add plugin meta and support typescript-eslint@7 ([#86](https://github.com/gund/eslint-plugin-deprecation/issues/86)) ([1365f7f](https://github.com/gund/eslint-plugin-deprecation/commit/1365f7f14ae529210b812aad78c1c0e0e26c6e1f))
+
+
+### BREAKING CHANGES
+
+* Dropped support for ESLint v7.
+
+* feat: add plugin meta and support typescript-eslint@7
+
+* Update package.json
+
+Co-authored-by: Alex Malkevich <3644678+gund@users.noreply.github.com>
+
+* Updated lockfile and other dependencies
+
+* skipLibCheck too
+
+* Goodbye, ESLint v7
+
 # [2.0.0](https://github.com/gund/eslint-plugin-deprecation/compare/v1.5.0...v2.0.0) (2023-09-13)
 
 
