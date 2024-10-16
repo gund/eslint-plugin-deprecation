@@ -1,3 +1,8 @@
+# Rule has migrated
+
+Rule had been added to [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint) project and the docs can be found [here](https://typescript-eslint.io/rules/no-deprecated).
+This repo is no longer maintained and is archived.
+
 # eslint-plugin-deprecation
 
 [![Test Workflow](https://github.com/gund/eslint-plugin-deprecation/actions/workflows/test.yml/badge.svg)](https://github.com/gund/eslint-plugin-deprecation/actions/workflows/test.yml)
